@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeMovie } from "../movieSlice";
+// Import the new async thunks
+import { removeMovieFromDb } from "../movieSlice";
 import { MovieEdit } from "../modals/MovieEdit";
 
 export const MovieList = () => {
   const movies = useSelector((state) => state.movies.movies);
   const dispatch = useDispatch();
-
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movieToEdit, setMovieToEdit] = useState(null);
 
   const handleRemoveMovie = (id) => {
-    dispatch(removeMovie(id));
+    // Dispatch the removeMovieFromDb thunk with the movie ID
+    dispatch(removeMovieFromDb(id));
   };
 
   const handleEditMovie = (movie) => {
@@ -41,8 +43,7 @@ export const MovieList = () => {
         <MovieEdit
           movie={movieToEdit}
           onClose={handleCloseModal}
-          // Pass the dispatch function to the modal
-          dispatch={dispatch} 
+          dispatch={dispatch}
         />
       )}
     </div>

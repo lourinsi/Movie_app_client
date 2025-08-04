@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { editMovie } from '../movieSlice'; // Import the editMovie action
+import { editMovieInDb } from '../movieSlice'; // Import the new async thunk
 
-// The component now accepts `dispatch` as a prop
 export const MovieEdit = ({ movie, onClose, dispatch }) => {
   const [newName, setNewName] = useState(movie.name);
 
   const handleSave = () => {
-    // Dispatch the editMovie action with the movie's ID and the new name
     if (newName.trim() !== '' && newName !== movie.name) {
-      dispatch(editMovie({ id: movie.id, newName }));
+      // Dispatch the editMovieInDb thunk with the ID and new name
+      dispatch(editMovieInDb({ id: movie.id, newName }));
     }
     onClose();
   };
